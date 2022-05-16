@@ -1,6 +1,6 @@
 import './Estilos.css';
 
-function MiComponente () {
+const MiComponente = () => {
     const Objeto = {
         titulo : 'Curso React 2022',
         descripcion: '¡Arrancó el curso de React 2022 en el Informatorio!',

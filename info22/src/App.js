@@ -4,18 +4,40 @@ import MiComponente from './components/Noticia';
 
 // COMPONENTE PRINCIPAL DE NUESTRA APP
 import React, { Component } from 'react';
+
+
+const valor = 'Mundo!';
 class App extends Component{
-    // Ejemplo 'Hola Mundo' visto en el apunte "Primeros Pasos en React" del Aula virtual
     render(){
         return (
-            <div>
-                <h1>Hola Mundo!</h1>
+            <div style={ { ...estilo1({ bg: '#333', txt: 'right'}), ...estilo2 } }>
+                <h1>¡Hola {valor}</h1>
                 <p>Bienvenidos a los primeros pasos con React</p>
-                <MiComponente> </MiComponente>
+                <MiComponente style={ { ...estilo1({ bg: '#333', txt: 'center'}) } }> </MiComponente>
             </div>
         );
     }
 }
+
+
+ 
+
+// ESTILOS INLINE
+
+// funcion 
+const estilo1 = ( {bg = '#222', txt= 'center'} ) => ({
+	backgroundColor: bg,
+	color: '#fff',
+	padding: '10px 15px',
+	margin: '10px 15px',
+	textAlign: txt,
+});
+
+// object
+const estilo2 = {
+	boxShadow: '0 5px 3px rgba(0,0,0, 0.5)'
+}
+
 
 export default App;
 
