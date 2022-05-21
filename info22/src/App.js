@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import MiComponente from './components/Noticia';
+import Counter from './components/NewComponent';
 
 // COMPONENTE PRINCIPAL DE NUESTRA APP
 import React, { Component } from 'react';
@@ -14,6 +15,7 @@ class App extends Component{
                 <h1>¡Hola {valor}</h1>
                 <p>Bienvenidos a los primeros pasos con React</p>
                 <MiComponente style={ { ...estilo1({ bg: '#333', txt: 'center'}) } }> </MiComponente>
+                <Counter></Counter>
             </div>
         );
     }
