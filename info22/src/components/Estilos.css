@@ -3,6 +3,14 @@
     
 }
 
-.descripciones {
+.all {
     text-align: center;
+}
+
+.feliz {
+    background-color: rgb(73, 200, 231);
+}
+
+.triste {
+    background-color: rgb(119, 119, 119);
 }
