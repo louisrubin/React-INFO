@@ -14,3 +14,18 @@
 .triste {
     background-color: rgb(119, 119, 119);
 }
+
+.header {
+    color: white;
+    background-color: rgb(50, 50, 187);
+    width: 100%;
+    font-size: x-small;
+    padding: 10px;
+    
+}
+.header h1 {
+    font-family: 'Merriweather Sans', sans-serif;
+    margin: 5px;
+    padding: 0px;
+    border-style: none;
+}
