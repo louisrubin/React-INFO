@@ -45,7 +45,7 @@ class Wea extends Component{
 
 // Componente basado en Clases
 class App extends Component {
-	// el estado de un componente siempre deber ser 'state'
+	// el estado de un componente siempre deber ser llamado 'state'
 	state = {
 		valor : 2,
 	}

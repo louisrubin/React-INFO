@@ -30,7 +30,7 @@
     border-style: none;
 }
 .search {
-    margin-left: 15px;
+    margin-left: 20px;
     margin-top: 25px;
     height: 23px;
     width: 135px;
@@ -38,4 +38,9 @@
     border-left: 0px;
     border-right: 0px;
     opacity: 75%;
+}
+
+.card {
+    margin: 20px;
+    size: 33%;
 }
