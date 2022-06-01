@@ -17,7 +17,7 @@
 
 .header {
     color: white;
-    background-color: rgb(50, 50, 187);
+    background-color: rgb(47, 92, 190);
     width: 100%;
     font-size: x-small;
     padding: 10px;
@@ -28,4 +28,14 @@
     margin: 5px;
     padding: 0px;
     border-style: none;
+}
+.search {
+    margin-left: 15px;
+    margin-top: 25px;
+    height: 23px;
+    width: 135px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    opacity: 75%;
 }
