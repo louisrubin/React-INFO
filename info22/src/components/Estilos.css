@@ -1,3 +1,46 @@
+
+.header {
+    color: rgb(255, 255, 255);
+    background-color: rgb(56, 79, 185);
+    width: 100%;
+    font-size: 10px;
+    margin: 0;
+    padding-right: 0;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+.header h1 {
+    max-width: fit-content;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.search {
+    margin-left: 20px;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    height: 23px;
+    width: 135px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    opacity: 75%;
+}
+
+.card {
+    max-width: 33.333%;
+    margin: 0;
+    padding: 0;
+    float: left;
+
+}
+
+img {
+    width: 100%;
+}
+
+
+
 .titulos {
     text-align: center;
     
@@ -13,34 +56,4 @@
 
 .triste {
     background-color: rgb(119, 119, 119);
-}
-
-.header {
-    color: white;
-    background-color: rgb(47, 92, 190);
-    width: 100%;
-    font-size: x-small;
-    padding: 10px;
-    
-}
-.header h1 {
-    font-family: 'Merriweather Sans', sans-serif;
-    margin: 5px;
-    padding: 0px;
-    border-style: none;
-}
-.search {
-    margin-left: 20px;
-    margin-top: 25px;
-    height: 23px;
-    width: 135px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    opacity: 75%;
-}
-
-.card {
-    margin: 20px;
-    size: 33%;
 }
