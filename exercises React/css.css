@@ -13,6 +13,12 @@
 
 p {
     margin: 0;
+    font-style: italic;
+}
+
+.titulo {
+    font-weight: 900;
+    font-style: normal;
 }
 
 body {
@@ -31,6 +37,7 @@ button {
     padding: 8px;
     font-size: 15px;
     background-color: rgb(119, 119, 119);
+    font-weight: bold;
 }
 
 button:hover {
