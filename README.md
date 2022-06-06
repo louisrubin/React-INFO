@@ -1,2 +1,3 @@
 # React-INFO
-Ejercicios propuestos en el Informatorio Etapa 3 - G1
+Exercises performed at the academy "Informatorio": Stage 3 - Group 1
+And also through the Udemy course of React, JavaScript, HTML and CSS

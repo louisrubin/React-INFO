@@ -22,10 +22,11 @@ body {
 
 hr {
     width: 100%;
+    opacity: 30%;
 }
 
 button {
-    color: white;
+    color: #fff;
     border: 0;
     padding: 8px;
     font-size: 15px;
