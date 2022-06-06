@@ -1,0 +1,43 @@
+.container {
+    background-color: rgb(255, 255, 255);
+    margin: 10px;
+    padding: 0;
+    border-style: initial;
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+.container div {
+    padding: 15px;
+}
+
+p {
+    margin: 0;
+}
+
+body {
+    background-color: rgb(206, 213, 219);
+    margin: 0;
+}
+
+hr {
+    width: 100%;
+}
+
+button {
+    color: white;
+    border: 0;
+    padding: 8px;
+    font-size: 15px;
+    background-color: rgb(119, 119, 119);
+}
+
+button:hover {
+    opacity: 70%;
+}
+
+.button1 {
+    background-color: rgb(35, 132, 243);
+    margin-right: 5px;
+    
+}
