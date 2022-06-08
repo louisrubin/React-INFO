@@ -7,9 +7,6 @@ class Header extends Component {
             <>
                 <div className='header'>
                     <h1>React & Material-UI Sample Application</h1>
-                    
-                </div>
-                <div>                        
                     <input className='search' placeholder='Search for Courses'/>
                 </div>
 

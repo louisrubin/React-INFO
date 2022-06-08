@@ -1,18 +1,28 @@
+body {
+    background-color: #eee;
+}
 
-.header {
-    color: rgb(255, 255, 255);
-    background-color: rgb(56, 79, 185);
-    width: 100%;
-    font-size: 10px;
-    margin: 0;
-    padding-right: 0;
-    font-family: 'Merriweather Sans', sans-serif;
+.header input {
+    background-color: #eee;
+    font-size: 14px;
+    padding-right: 17px;
 }
 
 .header h1 {
-    max-width: fit-content;
+    font-size: 20px;
+    font-family: 'Merriweather Sans', sans-serif;
+    color: #fff;
+    background-color: rgb(56, 79, 185);
+    width: 100%;
     margin: 0;
-    opacity: 0.9;
+    padding: 10px 15px;
+    padding-top: 15px;
+    opacity: 0.95;
+    box-sizing: border-box;
+}
+
+.Card-content {
+    margin: 0px 5px;
 }
 
 .search {
@@ -21,39 +31,35 @@
     margin-bottom: 35px;
     height: 23px;
     width: 135px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
     opacity: 75%;
 }
 
 .card {
-    max-width: 33.333%;
-    margin: 0;
+    background-color: #fff;
+    max-width: 30%;
+    margin: 0% 1.66%;
     padding: 0;
     float: left;
-
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.2);
 }
-
-img {
+.card img {
+    border-radius: 4px;
     width: 100%;
 }
-
-
-
-.titulos {
-    text-align: center;
-    
+.content {
+    margin: 0px 15px;
 }
 
-.all {
-    text-align: center;
-}
-
-.feliz {
-    background-color: rgb(73, 200, 231);
-}
-
-.triste {
-    background-color: rgb(119, 119, 119);
+.content a {
+    display: block;
+    box-sizing: content-box;
+    margin-bottom: 15px;
+    color: rgb(59, 84, 194);
+    font-weight: bold;
+    text-decoration: none;
 }
