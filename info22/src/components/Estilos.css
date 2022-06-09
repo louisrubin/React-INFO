@@ -6,22 +6,24 @@ body {
     background-color: #eee;
     font-size: 14px;
     padding-right: 17px;
+    margin: 20px 20px;
+    margin-bottom: 25px;
 }
 
 .header h1 {
-    font-size: 20px;
+    font-size: 23px;
     font-family: 'Merriweather Sans', sans-serif;
     color: #fff;
     background-color: rgb(56, 79, 185);
     width: 100%;
     margin: 0;
-    padding: 10px 15px;
+    padding: 15px 17px;
     padding-top: 15px;
     opacity: 0.95;
     box-sizing: border-box;
 }
 
-.Card-content {
+.whole-Cards {
     margin: 0px 5px;
 }
 
@@ -38,7 +40,7 @@ body {
     opacity: 75%;
 }
 
-.card {
+.Card {
     background-color: #fff;
     max-width: 30%;
     margin: 0% 1.66%;
@@ -47,19 +49,27 @@ body {
     border-radius: 4px;
     box-shadow: 0px 4px 4px rgba(0,0,0,0.2);
 }
-.card img {
+.Card img {
     border-radius: 4px;
     width: 100%;
+    height: ;
 }
-.content {
+.Card-content {
     margin: 0px 15px;
 }
 
-.content a {
+.Card-content a {
     display: block;
     box-sizing: content-box;
     margin-bottom: 15px;
     color: rgb(59, 84, 194);
     font-weight: bold;
     text-decoration: none;
+}
+.Card-content h4 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+.Card-content p {
+    font-size: 15px;
 }
