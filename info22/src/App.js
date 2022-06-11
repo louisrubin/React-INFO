@@ -1,7 +1,9 @@
 import { Component, useSyncExternalStore } from "react";
-import Counter from "./components/NewComponent";
+import { Link, Route, Routes } from 'react-router-dom';
 import './components/Estilos.css';
 import HomePage from "./pages/HomePage";
+import Expenses from './routes/expenses';
+import Invoices from './routes/invoices';
 
 class Entrada extends Component {
 	render() {
@@ -24,16 +26,17 @@ class App extends Component {
 
 	render(){
 		return (
-			<>
-				<div>
-					{/* <p>Nombre Completo: {`${this.state.name} ${this.state.surname}`}</p>
-					<Entrada valor={this.state.name} onChange={e => this.updateValues('name', e.target.value) }/>
-					<Entrada valor={this.state.surname} onChange={e => this.updateValues('surname', e.target.value) }/> */}
-				</div>
-				<HomePage/>
-			</>
-		)
+				<HomePage />
+		);
 	}
 }
 
 export default App;
+
+
+/* <div>
+	<p>Nombre Completo: {`${this.state.name} ${this.state.surname}`}</p>
+	<Entrada valor={this.state.name} onChange={e => this.updateValues('name', e.target.value) }/>
+	<Entrada valor={this.state.surname} onChange={e => this.updateValues('surname', e.target.value) }/>
+</div>
+<HomePage/> */

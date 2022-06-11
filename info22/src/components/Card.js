@@ -3,7 +3,6 @@ import "./Estilos.css";
 import react_redux from "../assets/ignore/React-and-Redux.jpg";
 import react_cool from "../assets/ignore/react-cool.jpeg";
 import react_violet from "../assets/ignore/react-violet.jpg";
-import enzo from "../assets/ignore/enzo-te-elimino.PNG";
 
     
 class Card extends Component {

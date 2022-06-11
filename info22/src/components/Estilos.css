@@ -2,7 +2,7 @@ body {
     background-color: #eee;
 }
 
-.header input {
+.header-inp input {
     background-color: #eee;
     font-size: 14px;
     padding-right: 17px;
@@ -10,17 +10,30 @@ body {
     margin-bottom: 25px;
 }
 
-.header h1 {
+.header-bg h1 {
+    display: inline-block;
     font-size: 23px;
     font-family: 'Merriweather Sans', sans-serif;
     color: #fff;
-    background-color: rgb(56, 79, 185);
-    width: 100%;
     margin: 0;
     padding: 15px 17px;
     padding-top: 15px;
     opacity: 0.95;
+}
+.header-bg {
+    background-color: rgb(56, 79, 185);
+    width: 100%;
     box-sizing: border-box;
+}
+.header-icons {
+    float: right;
+    height: 30px;
+}
+.header-bg img {
+    width: 30px;
+}
+.header-bg img:hover {
+    cursor: pointer;
 }
 
 .whole-Cards {
@@ -52,7 +65,6 @@ body {
 .Card img {
     border-radius: 4px;
     width: 100%;
-    height: ;
 }
 .Card-content {
     margin: 0px 15px;
