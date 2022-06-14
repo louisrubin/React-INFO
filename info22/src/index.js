@@ -3,25 +3,24 @@ import reportWebVitals from './reportWebVitals';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from './App';
-import Expenses from './routes/expenses';
-import Invoices from './routes/invoices';
-import HomePage from './pages/HomePage';
+import { BrowserRouter } from 'react-router-dom';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <BrowserRouter>
-		<Routes>
-			<Route path="/" element={<HomePage />}	/>
-			<Route path="invoices" element={<Invoices />}	/>
-			<Route path="expenses" element={<Expenses />}	/>
-		</Routes>
-  </BrowserRouter>
+  <React.StrictMode>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+  </React.StrictMode>
 );
+
+/* BrowserRouter:
+		Esta envoltura nos da acceso al API de historias de HTML5 para mantener nuestra interfaz gráfica en sincronía con la locación actual o URL.
+		Debemos tener en cuenta que esta envoltura solo puede tener un hijo. Por lo general es Switch.
+*/
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

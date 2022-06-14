@@ -5,30 +5,27 @@ import HomePage from "./pages/HomePage";
 import Expenses from './routes/expenses';
 import Invoices from './routes/invoices';
 
+/*
 class Entrada extends Component {
 	render() {
 		return(
 			<input valor={this.props.valor} onChange={this.props.onChange} />
 		)
 	}
-}
- 
-class App extends Component {
-	state = {
-		name : '',
-		surname: '',
-	}
+}	*/
 
-	updateValues = (prop, value) => {
-		// propiedades dinámicas [] 
-		this.setState({ [prop]: value });
-	}
-
-	render(){
-		return (
-				<HomePage />
-		);
-	}
+function App(){
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/" element={<Invoices />}	/>
+				<Route path="invoices" element={<Invoices />}	/>
+				<Route path="expenses" element={<Expenses />}	/>
+				<Route path="*" element={<Expenses />}	/>
+			</Routes>
+		</div>
+		
+	);
 }
 
 export default App;
