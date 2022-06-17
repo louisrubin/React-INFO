@@ -1,0 +1,128 @@
+body {
+    background-color: #eee;
+}
+.titulo {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin: 30px 20px;
+}
+
+.block1 {
+    display: inline-block;
+    width: 30%;
+    margin-left: 10%;
+}
+.block1 div {
+    background-color: rgb(253, 166, 166);
+}
+
+.block2 div {
+    background-color: rgb(221, 250, 60);
+}
+
+.block2 {
+    display: inline;
+    width: 30%;
+    float: right;
+    margin-right: 5%;
+}
+
+.bck1-box1 {
+    margin-top: 50px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    left: 50px;
+    margin-right: 250px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: rotate(20deg );
+}
+
+.bck1-box2 {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: translate(70px, 70px);
+}
+
+.bck1-box3 {
+    position: relative;
+    margin-top: 50px;
+    margin-right: 200px;
+    width: 180px;
+    height: 180px;
+    left: 50px;
+    top: 70px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: scale(1, 1);
+}
+.bck1-box3:hover {
+    transform: scaleX(1.15);
+}
+
+
+.bck1-box4 {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    left: 50px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: skewX(20deg);
+}
+
+
+
+
+
+
+.bck2-box1 {
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: rotate(-45deg );
+}
+
+.bck2-box2 {
+    position: relative;
+    margin-right: 150px;
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: translate(20px, 50px);
+}
+
+.bck2-box3 {
+    position: relative;
+    margin-top: 50px;
+    width: 180px;
+    height: 180px;
+    top: 70px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: scale(1, 1);
+}
+.bck2-box3:hover {
+    transform: scale(0.9, 1.5);
+}
+
+.bck2-box4 {
+    display: inline-block;
+    position: relative;
+    width: 170px;
+    height: 170px;
+    left: 50px;
+    margin-top: 100px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transform: skew(-25deg,-10deg);
+}
