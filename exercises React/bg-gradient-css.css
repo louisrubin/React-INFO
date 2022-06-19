@@ -2,15 +2,22 @@ body {
     background-color: #eee;
     font-size: 20px;
 }
+body div {
+    padding: 20px 10px;
+    margin-bottom: 20px;
+}
 
 .fondo1 {
     background-image: linear-gradient(-90deg, rgba(0,0,255,1), tomato );
 }
 
 .fondo2 {
-    background-image: linear-gradient(to bottom right, rgb(71, 253, 96), rgb(252, 16, 201)  );
+    background-image: linear-gradient(to bottom right, rgb(71, 253, 96), rgb(252, 16, 201) );
 }
 
 .fondo3 {
     background-image: repeating-linear-gradient(to bottom, rgb(255,0,0) 10%, tomato 20%  );
+}
+.fondo3 p {
+    font-weight: bold;
 }
