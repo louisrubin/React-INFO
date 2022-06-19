@@ -19,6 +19,12 @@ body {
 .block2 div {
     background-color: rgb(221, 250, 60);
 }
+.block3 div {
+    background-color: rgb(71, 250, 125);
+}
+.block4 div {
+    background-color: rgb(66, 170, 255);
+}
 
 .block2 {
     display: inline;
@@ -26,6 +32,27 @@ body {
     float: right;
     margin-right: 5%;
 }
+
+.block3 {
+    display: inline-block;
+    width: 30%;
+    margin-left: 10%;
+}
+.block4 {
+    display: inline;
+    width: 30%;
+    float: right;
+    margin-right: 5%;
+}
+
+.conteiner-1 {
+    margin-bottom: 50px;
+}
+
+.conteiner-2 {
+    margin-bottom: 100px;
+}
+
 
 .bck1-box1 {
     margin-top: 50px;
@@ -71,7 +98,6 @@ body {
     height: 150px;
     left: 50px;
     margin-top: 100px;
-    margin-bottom: 50px;
     box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
 
     transform: skewX(20deg);
@@ -125,4 +151,50 @@ body {
     box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
 
     transform: skew(-25deg,-10deg);
+}
+
+
+.bck3-box1 {
+    margin-top: 50px;
+    position: relative;
+    width: 150px;
+    height: 150px;
+    left: 50px;
+    margin-right: 250px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transition: left 0.4s;
+}
+.bck3-box1:hover {
+    left: 100px;
+}
+
+.bck4-box1 {
+    margin-top: 50px;
+    width: 150px;
+    height: 150px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+
+    transition: 0.3s 0.4s;
+}
+.bck4-box1:hover {
+    transform: scale(1.5, 1.3);
+    background-color: rgba(66, 170, 255, 0.7);
+}
+
+
+.box-middle1 {
+    background-image: linear-gradient(-90deg, rgb(31, 253, 98), rgb(17, 147, 253) );
+    position: relative;
+    top: 50px;
+    left: 38.6%;
+    width: 180px;
+    height: 180px;
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.2);
+    border-radius: 4px;
+
+    transition: 1.8s;
+}
+.box-middle1:active {
+    transform: rotate(360deg);
 }
