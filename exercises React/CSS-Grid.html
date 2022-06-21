@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grid Garden</title>
+    <link rel="stylesheet" href="CSS-Grid-css.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600&family=Potta+One&display=swap" rel="stylesheet">    
+    
+
+
+</head>
+<body>
+    <div class="conteiner">
+        <div class="left">
+            <div class="header">
+                <div id="title">grid garden</div>
+                <div class="level">nivel</div>
+            </div>
+
+            <div class="description">
+                <p>CSS Grid también introduce una nueva medida, la fracción fr. Cada unidad fr asigna una porción 
+                    del espacio disponible. Por ejemplo, si dos elementos están establecidos a 1fr y 3fr 
+                    respectivamente el espacio se divide en 4 porciones iguales; el primer elemento ocupa 1/4 del 
+                    espacio y el segundo elemento los 3/4 restantes.</p>
+                <p>Ahora las malas hierbas ocupan 1/6 de tu primera fila y las zanahorias los restantes 5/6. Crea 
+                    dos columnas con ese ancho empleando fr.</p>
+            </div>
+
+            <div class="input">
+                <div class="inp-col-1">
+                    <div class="inp-elem">1</div>
+                    <div class="inp-elem">2</div>
+                    <div class="inp-elem">3</div>
+                    <div class="inp-elem">4</div>
+                    <div class="inp-elem">5</div>
+                    <div class="inp-elem">6</div>
+                    <div class="inp-elem">7</div>
+                    <div class="inp-elem">8</div>
+                    <div class="inp-elem">9</div>
+                    <div class="inp-elem"></div>
+                </div>
+
+                <div class="inp-col-2">
+                    <div><b>.inp-col-2</b> {</div>
+                    <div class="inp-col-2-ident">display: grid;</div>
+                    <div class="inp-col-2-ident">grid-template-rows: repeat(10, 9%);</div>
+                    <div class="inp-col-2-ident">grid-row: 1 / 9;</div>
+                    <div class="inp-col-2-ident">background-color: #eee;</div>
+                    <div class="inp-col-2-ident">color: rgb(126, 126, 126);</div>
+                    <textarea id="input-input" autofocus autocapitalize="none" ></textarea>
+                    <div>}</div>
+                    <div></div>
+
+                    <button id="btn-next">Siguiente</button>
+                </div>
+
+            </div>
+
+            <footer>
+                footer
+            </footer>
+
+        </div>
+
+
+        <div class="right">
+            bbbbb
+        </div>
+    </div>
+</body>
+</html>

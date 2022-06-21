@@ -1,0 +1,121 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(87, 168, 70);
+    color: #fff;
+    font-size: 1em;
+    height: 100%;
+    margin: 0;
+    
+}
+
+.conteiner {
+    display: grid;
+    height: 100%;
+    grid-template-columns: [column-left] 50%  [column-right] 50% [column-end];
+}
+
+.left {
+    display: grid;
+    grid-gap: 15px;
+    background-color: rgb(108, 167, 96);
+    padding: 15px 30px;
+    padding-bottom: 5px;
+    grid-template-rows: [title] 10% [desc] 20% [input] 50% [footer] 0.6fr [footer-end];
+}
+.header {
+    background-color: rgb(175, 156, 69);
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+}
+#title {
+    text-transform: uppercase;
+    font-family: 'Potta One', cursive;
+    font-size: 30px;
+}
+
+.description {
+    background-color: rgb(134, 90, 138);
+}
+
+.description p {
+    font-size: 0.95em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 5px;
+    
+}
+
+.input {
+    display: grid;
+    background-color: rgb(228, 227, 227);
+    border-radius: 4px;
+    
+    grid-template-columns: 5% 95%;
+}
+
+.inp-col-1 {
+    display: grid;
+    grid-template-rows: repeat(10, 9%);
+    grid-row-start: 1;
+    grid-row-end: 9;
+    background-color: rgb(155, 153, 153);
+    border-radius: 2px;
+
+    text-align: end;
+    padding-right: 6px;
+    padding-top: 10px;
+    font-size: 15px;
+    font-family: 'Maven Pro', sans-serif;
+}
+.inp-col-2 {
+    display: grid;
+    grid-template-rows: repeat(10, 9%);
+    grid-row: 1 / 9;
+    background-color: rgb(228, 227, 227);
+
+    padding-top: 10px;
+    padding-left: 12px;
+    border-radius: 8px;
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: 500;
+    color: rgb(126, 126, 126);
+}
+
+.inp-col-2-ident {
+    margin-left: 20px;
+}
+#input-input {
+    margin-left: 20px;
+    width: calc(100% - 50px);
+    height: 20px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+}
+
+#btn-next {
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: sandybrown;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 5px 15px;
+    
+    display: inline-block;
+    cursor: pointer;
+
+    
+}
+
+footer {
+    background-color: rgb(51, 85, 44);
+}
