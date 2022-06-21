@@ -15,11 +15,24 @@
 
 </head>
 <body>
-    <div class="conteiner">
-        <div class="left">
-            <div class="header">
+    <div id="conteiner">
+        <div id="left">
+            <div id="header">
                 <div id="title">grid garden</div>
-                <div class="level">nivel</div>
+                <div id="levels">
+
+                    <span class="arrow left">
+                        <img class="arrow-img" src="left-arrow.png" alt="">
+                    </span>
+                    
+                    <span id="level-descp">
+                        Level 21 of 28
+                    </span>
+
+                    <span class="arrow right">
+                        <img class="arrow-img" src="right-arrow.png" alt="">
+                    </span>
+                </div>
             </div>
 
             <div class="description">
@@ -28,10 +41,10 @@
                     respectivamente el espacio se divide en 4 porciones iguales; el primer elemento ocupa 1/4 del 
                     espacio y el segundo elemento los 3/4 restantes.</p>
                 <p>Ahora las malas hierbas ocupan 1/6 de tu primera fila y las zanahorias los restantes 5/6. Crea 
-                    dos columnas con ese ancho empleando fr.</p>
+                    dos columnas con ese ancho empleando <code>fr</code>.</p>
             </div>
 
-            <div class="input">
+            <div id="input">
                 <div class="inp-col-1">
                     <div class="inp-elem">1</div>
                     <div class="inp-elem">2</div>
@@ -56,9 +69,9 @@
                     <div>}</div>
                     <div></div>
 
-                    <button id="btn-next">Siguiente</button>
                 </div>
 
+                <button id="btn-next">Siguiente</button>
             </div>
 
             <footer>
@@ -68,7 +81,7 @@
         </div>
 
 
-        <div class="right">
+        <div id="right">
             bbbbb
         </div>
     </div>
