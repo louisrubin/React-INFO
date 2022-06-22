@@ -11,7 +11,7 @@ body {
     
 }
 
-#conteiner {
+#conteiner1 {
     display: grid;
     height: 100%;
     grid-template-columns: [column-left] 50%  [column-right] 50% [column-end];
@@ -36,9 +36,6 @@ body {
     font-size: 30px;
 }
 
-.description {
-    background-color: rgb(134, 90, 138);
-}
 
 .description p {
     font-size: 0.95em;
@@ -155,4 +152,11 @@ span.arrow:hover {
 
 footer {
     background-color: rgb(51, 85, 44);
+}
+
+#fail {
+    font-weight: bold; 
+    background-color: red; 
+    color: #fff; 
+    padding: 20px;
 }
