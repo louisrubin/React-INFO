@@ -201,6 +201,7 @@ footer a {
     display: inline-block;
     background-color: rgba(255,255,255,0.25);
     padding: 4px 8px;
+    margin-left: 2px;
     user-select: none;
     cursor: pointer;
     color: #fff;
@@ -213,6 +214,7 @@ footer a {
 
 #tooltip {
     position: absolute;
+    display: none;
     color: #fff;
     padding: 10px 10px;
     word-spacing: 5px;
@@ -222,4 +224,5 @@ footer a {
     width: 100px;
     top: -42px;
     left: -30px;
+    box-sizing: content-box;
 }
