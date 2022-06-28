@@ -12,6 +12,10 @@ app.put('/:id', user.update)
 app.patch('/:id', user.update)
 app.delete('/:id', user.destroy)
 
+app.get('*', (req, res) => {
+    res.status(404).send('Page not found')
+})
+
 app.listen(port, () => {
     console.log('arrancando la app.')
 })
