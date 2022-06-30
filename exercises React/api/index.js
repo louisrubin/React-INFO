@@ -25,14 +25,14 @@ const buscarTodo = async () => {
 // buscarTodo()
 
 const buscar = async () => {
-    const user = await User.find( { username: 'chanchito feliz' } )     // find() busca TODOS los elementos que cumplan esa condicion 'username'
+    const user = await User.find( { username: 'chanchito feliz' } )     // retorna un arreglo [ ] buscando TODOS los elementos que cumplan esa condicion 'username'
     console.log(user)
 }
 
 // buscar()
 
 const buscarUno = async () => {
-    const user = await User.findOne({ username: 'chanchito feliz' })
+    const user = await User.findOne({ username: 'chanchito feliz' })    // findOne() retorna un objeto { } con un único elemento 
     console.log(user)
 }
 
