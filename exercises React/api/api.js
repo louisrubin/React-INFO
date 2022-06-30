@@ -12,13 +12,20 @@ app.use(express.json())     /* Esto toma todas las peticiones que vengan en un f
 mongoose.connect('mongodb+srv://louis-rbn:admin123@cluster0.oyqdl0d.mongodb.net/miapp?retryWrites=true&w=majority')
 
 
-app.get('/', user.list)
-app.post('/', user.create)
-app.get('/:id', user.get)
-app.put('/:id', user.update)
-app.patch('/:id', user.update)
-app.delete('/:id', user.destroy)
+app.get('/users', user.list)
+app.post('/users', user.create)
+app.get('/users:id', user.get)
+app.put('/users:id', user.update)
+app.patch('/users:id', user.update)
+app.delete('/users:id', user.destroy)
 
+// use() es para llamar a un MIDDLEWARE de, en este caso express
+app.use(express.static('app'))     // con el método static() le indicamos a -express- que tiene que ir a buscar TODOS los archivos dentro de la carpeta '' 
+
+app.get('/', (req, res) => {
+    console.log(__dirname)      // ruta en la que se está ejecutando el script api.js
+    res.sendFile(`${__dirname}/index.html`) 
+})
 app.get('*', (req, res) => {
     //  '*' en caso de intentar ingresar a una url que no existe ejecuta esto
     res.status(404).send('Page not found')
