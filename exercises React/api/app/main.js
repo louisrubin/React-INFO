@@ -27,13 +27,30 @@ const getUsers = async () => {
     const users = await response.json()     // la respuesta que nos devuelve -fetch- dentro de const 'response' cuenta con un metodo json() el cual nos permite transformar esas respuestas en un -objeto- javascript
     const template = user => `
         <li>
-            ${user.name} ${user.lastname} <button data-id="${user._id}">Eliminar</button>
+            <b>id:</b> ${user._id}  |  ${user.name} ${user.lastname} <button data-id="${user._id}">Eliminar</button>
         </li>
     `
     const userList = document.getElementById('user-list')
     //              con map() iteramos, recibe un parámetro 'user' el cual ejecuta la funcion 'template()' el cual espera por parámetro un usuario, asi que le pasamos el mismo usuario
     userList.innerHTML = users.map(user => template(user)).join('')
     // por cada 'user' devuelto por el servidor, ejecuta la funcion 'template()'. Esto devuelve un arreglo [ ] donde se contiene la plantilla de ese user, por eso llamamos al método join() para convertir todo eso en un 'string' separados por ningún caracter: .join('')
+    users.forEach( user => {    // llamamos a forEach() y no a map() pq no vamos a retornar nada, solo asignamos comportamientos a cada nodo de los botones 'eliminar'
+        
+                    // cuando usamos un propiedad custom como en este caso 'data-id' tenemos que usar [ ]
+        const userNode = document.querySelector(`[data-id="${user._id}"]`)    // buscamos el boton con la método querySelector()
+        
+        userNode.onclick = async e => {
+            // en fetch llamamos a '/users' y le pasamos el id del usuario el cual vamos a eliminar
+            await fetch(`/users/${user._id}`, {
+                method: 'DELETE',
+                // no le pasamos un header pq en nuestro back-end no estamos usando la propiedad de -body- del request
+            })
+            userNode.parentNode.remove() // subimos un nivel en el árbol html para poder borrar el elemento <li>
+            alert('Eliminado con éxito')
+        }
+    
+    })     
+
 
 }
 
