@@ -23,9 +23,10 @@ app.delete('/users:id', user.destroy)
 app.use(express.static('app'))     // con el método static() le indicamos a -express- que tiene que ir a buscar TODOS los archivos dentro de la carpeta '' 
 
 app.get('/', (req, res) => {
-    console.log(__dirname)      // ruta en la que se está ejecutando el script api.js
+    //  __dirname es ruta en la que se está ejecutando el script api.js
     res.sendFile(`${__dirname}/index.html`) 
 })
+
 app.get('*', (req, res) => {
     //  '*' en caso de intentar ingresar a una url que no existe ejecuta esto
     res.status(404).send('Page not found')
