@@ -12,6 +12,11 @@ const app = express()
 
 app.use(express.json())   // express tiene que utilizar 'express.json()' para recibir los datos que estamos enviando en formato JSON
 
+const signToken = _id => {
+    // encriptamos el ID a un JSON Web Token
+    return jwt.sign({ _id }, 'mi-string-secreto')      // (el id que vamos a encriptar   ,   de que forma vamos a encriptar el JWT)
+}
+
 app.post('/register', async (req, res) => {
     const { body } = req    // capturamos el 'body' de la request
     console.log({ body })
@@ -24,7 +29,8 @@ app.post('/register', async (req, res) => {
         const salt = await bcrypt.genSalt()     // genera el código salt
         const hashed = await bcrypt.hash(body.password, salt)   // encriptamos la contraseña con el salt
         const user = await User.create({ email: body.email, password: hashed, salt })
-        res.send({ _id: user._id })     // la api retorna el id
+        const signed = signToken(user._id)      // funcion signToken() que retorna un JSON Web Token
+        res.status(201).send(signed) // status 201: un recurso fue creado con exito
 
     } catch (err) {
         console.log(err)
