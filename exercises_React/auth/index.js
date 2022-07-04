@@ -18,6 +18,8 @@ const signToken = _id => {
 }
 
 app.post('/register', async (req, res) => {
+    // end-point   =>   Registro de usuario
+    
     const { body } = req    // capturamos el 'body' de la request
     console.log({ body })
 
@@ -37,6 +39,36 @@ app.post('/register', async (req, res) => {
         res.status(500).send(err.message)
     }
 })
+
+
+app.post('/login', async (req, res) => {
+    // end-point   =>   Inicio de sesión
+    
+    const { body } = req
+
+    try {
+        const user = await User.findOne({ email: body.email})
+        if (!user){
+            // si no se encontró ningun user en BD
+            res.status(403).send('Usuario y/o contraseña incorrecto')
+        } else {
+            //                    bcrypt.compare( string sin encriptar    ,  string encriptado )  =>  boolean
+            const isMatch = await bcrypt.compare(    body.password        ,    user.password)
+            if (isMatch){
+                const signed = signToken(user._id)      // funcion signToken() que retorna un JSON Web Token
+                res.status(200).send(signed)
+            } else {
+                // si las 2 contraseñas no son las mismas
+                res.status(403).send('Usuario y/o contraseña incorrecto')
+            }
+        }
+
+
+    } catch (err) {
+        res.status(500).send(err.message)
+    }
+})
+
 
 app.listen(3000, () => {
     console.log('listening in port 3000')
