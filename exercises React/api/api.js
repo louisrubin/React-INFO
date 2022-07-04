@@ -14,10 +14,10 @@ mongoose.connect('mongodb+srv://louis-rbn:admin123@cluster0.oyqdl0d.mongodb.net/
 
 app.get('/users', user.list)
 app.post('/users', user.create)
-app.get('/users:id', user.get)
-app.put('/users:id', user.update)
-app.patch('/users:id', user.update)
-app.delete('/users:id', user.destroy)
+app.get('/users/:id', user.get)
+app.put('/users/:id', user.update)
+app.patch('/users/:id', user.update)
+app.delete('/users/:id', user.destroy)
 
 // use() es para llamar a un MIDDLEWARE de, en este caso express
 app.use(express.static('app'))     // con el método static() le indicamos a -express- que tiene que ir a buscar TODOS los archivos dentro de la carpeta '' 
