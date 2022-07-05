@@ -6,20 +6,24 @@ const expressJwt = require('express-jwt')   // version: 5.3.3. late versions sen
 const User = require('./user')
 
 
-mongoose.connect('mongodb+srv://louis-rbn:admin123@cluster0.oyqdl0d.mongodb.net/auth?retryWrites=true&w=majority')
+// process.env.SECRET_JWT    es una variable local en mi PC que contiene la conexion a mi BD en la nube
+mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )   // windows me cortó la ultima parte del string asi que lo concateno acá
+
 
 const app = express()
 
 app.use(express.json())   // express tiene que utilizar 'express.json()' para recibir los datos que estamos enviando en formato JSON
 
+
+
 const validateJwt = expressJwt(
     // middleware de validación del JSON Web Token
-    { secret: 'mi-string-secreto', algorithms: ['HS256'] 
+    { secret:   process.env.SECRET_JWT,   algorithms: ['HS256']     // process.env.SECRET_JWT es una variable local en mi PC que contiene el -string secreto-
 })
 
 const signToken = _id => {
     // encriptamos el ID a un JSON Web Token
-    return jwt.sign({ _id }, 'mi-string-secreto')      // (el id que vamos a encriptar   ,   de que forma vamos a encriptar el JWT)
+    return jwt.sign({ _id },  process.env.SECRET_JWT)      // (el id que vamos a encriptar   ,   de que forma vamos a encriptar el JWT)
 }
 
 
