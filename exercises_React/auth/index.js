@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const expressJwt = require('express-jwt')
+const expressJwt = require('express-jwt')   // version: 5.3.3. late versions send error
 const User = require('./user')
 
 
@@ -12,10 +12,17 @@ const app = express()
 
 app.use(express.json())   // express tiene que utilizar 'express.json()' para recibir los datos que estamos enviando en formato JSON
 
+const validateJwt = expressJwt(
+    // middleware de validación del JSON Web Token
+    { secret: 'mi-string-secreto', algorithms: ['HS256'] 
+})
+
 const signToken = _id => {
     // encriptamos el ID a un JSON Web Token
     return jwt.sign({ _id }, 'mi-string-secreto')      // (el id que vamos a encriptar   ,   de que forma vamos a encriptar el JWT)
 }
+
+
 
 app.post('/register', async (req, res) => {
     // end-point   =>   Registro de usuario
@@ -40,7 +47,6 @@ app.post('/register', async (req, res) => {
     }
 })
 
-
 app.post('/login', async (req, res) => {
     // end-point   =>   Inicio de sesión
     
@@ -62,11 +68,32 @@ app.post('/login', async (req, res) => {
                 res.status(403).send('Usuario y/o contraseña incorrecto')
             }
         }
-
-
     } catch (err) {
         res.status(500).send(err.message)
     }
+})
+
+const findAndAssignUser = async (req, res, next)  => {    
+    try{
+        const user = await User.findById(req.user._id)  // findById() vendría siendo un alias de findOne( _id : id)
+        if(!user){
+            return res.status(401).end()    // esta linea solo se ejecuta si el usuario no existe  o  si generamos el JWT con un ID inválido
+        }
+        req.user = user     // le asignamos a la propiedad 'user' en el objeto 'request'
+        next()  // llamamos al middleware que está más abajo
+
+    } catch(e) {
+        next(e)     // en el caso de llamar a next() con un error, no se va a ejecutar el siguiente middleware, sino que se ejecutará un middleware especial para el manejo de errores
+    }
+}
+
+const isAuthenticated = express.Router().use(validateJwt, findAndAssignUser)    // use() nos permite componer los middlewares en 1 solo para simplificar
+
+
+
+app.get('/lele', isAuthenticated, (req, res ) => {
+    // middleware  next()
+    res.send(req.user)
 })
 
 
