@@ -93,8 +93,25 @@ const isAuthenticated = express.Router().use(validateJwt, findAndAssignUser)    
 
 app.get('/lele', isAuthenticated, (req, res ) => {
     // middleware  next()
+    throw new Error('nuevo error')  // error ficticio
     res.send(req.user)
 })
+
+
+app.use((err, req, res, next) => {
+    // middleware de manejo de error tipo A:  solo imprime el error por consola por si queremos enviar el error a un servicio externo
+    console.error('Mi nuevo error', err.stack)
+    next(err)   // le pasamos el error a next() por si eventualmente queremos manipular el error
+})
+
+
+app.use((err, req, res, next) => {
+    // middleware de manejo de error tipo B:  devolvemos un mensaje customizado al usuario, podriamos devolver un html
+    res.send('Ha ocurrido un error :(') 
+
+    // de esta manera no es necesario llamar a next() y pasarle el error
+})
+
 
 
 app.listen(3000, () => {
