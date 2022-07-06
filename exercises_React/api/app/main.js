@@ -77,11 +77,49 @@ const addFormListener = () => {
 
 }
 
-window.onload = () => {
-    // window es un objeto global que hace referencia a nuestra ventana del explorador
-    // onload() es la función que se va a ejecutar una vez que se cargue TODO el contenido en la ventana
+
+
+const checkLogin = () => 
+    localStorage.getItem('jwt')  // verifica si hay un JWT en el localStorage (si no hay significa que el usuario no está logeado)
+
+
+const homePage = () => {
+    // funcion principal que carga todas las funciones de la página
     loadInitialTemplate()
     addFormListener()   // ejecuta el formulario
-    getUsers()      // una vez cargado la página ejecuta getUsers() el cual imprime todos los usuarios existentes
+    getUsers()      // una vez cargado la página ejecuta getUsers() el cual imprime todos los usuarios existentes en BD
+}
 
+const loadLoginTemplate = () => {
+    const template = `
+
+        <h1>Login</h1>
+        <form id="login-form">
+            <div>
+                <label>Correo</label>
+                <input name="email" />
+            </div>
+            <div>
+                <label>Contraseña</label>
+                <input name="password" />
+            </div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="error"></div>
+    `
+    const body = document.getElementsByTagName('body')[0]
+    body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
+}
+
+
+window.onload = () => {
+    const isLoggedIn = checkLogin()
+    if (isLoggedIn){
+        homePage()
+    }
+    else {
+        loadLoginTemplate()
+    }
 }

@@ -13,8 +13,8 @@ app.use(express.json())     /* Esto toma todas las peticiones que vengan en un f
 mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )
 
 
-app.get('/users', user.list)    // no me tiraba la lista de usuarios pq no tenia el token firmado (logeado)
-app.post('/users', isAuthenticated, user.create)
+app.get('/users', user.list)    // no mostraba la lista de users pq no tenia el token firmado (!loggedIn)
+app.post('/users', user.create)
 app.get('/users/:id', isAuthenticated, user.get)
 app.put('/users/:id', isAuthenticated, user.update)
 app.patch('/users/:id', isAuthenticated, user.update)
@@ -30,7 +30,7 @@ app.use(express.static('app'))     // con el método static() le indicamos a -ex
 
 app.get('/', (req, res) => {
     //  __dirname es ruta en la que se está ejecutando el script api.js
-    res.sendFile(`${__dirname}/index.html`) 
+    res.sendFile(`${__dirname}/index.html`) // empty HTML file 
 })
 
 app.get('*', (req, res) => {
@@ -39,5 +39,5 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log('Arrancando la app.')
+    console.log('Arrancando la app. PORT: ', port)
 })
