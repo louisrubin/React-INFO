@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://louis-rbn:admin123@cluster0.oyqdl0d.mongodb.net/miapp?retryWrites=true&w=majority')
+mongoose.connect('')
 
 const User = mongoose.model( 'User', {
     // forma que tendrán nuestros objetos dentro del modelo llamado 'User'

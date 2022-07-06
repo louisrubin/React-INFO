@@ -7,6 +7,7 @@ const User = require('./user')
 
 
 // process.env.SECRET_JWT    es una variable local en mi PC que contiene la conexion a mi BD en la nube
+// MORE INFO AT: shorturl.at/cnRWX
 mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )   // windows me cortó la ultima parte del string asi que lo concateno acá
 
 
@@ -91,10 +92,12 @@ const findAndAssignUser = async (req, res, next)  => {
     }
 }
 
+// esta funcion es para proteger los end-points (rutas)
 const isAuthenticated = express.Router().use(validateJwt, findAndAssignUser)    // use() nos permite componer los middlewares en 1 solo para simplificar
 
 
-
+/* 
+// MANEJO DE ERRORES
 app.get('/lele', isAuthenticated, (req, res ) => {
     // middleware  next()
     throw new Error('nuevo error')  // error ficticio
@@ -115,7 +118,7 @@ app.use((err, req, res, next) => {
 
     // de esta manera no es necesario llamar a next() y pasarle el error
 })
-
+*/
 
 
 app.listen(3000, () => {
