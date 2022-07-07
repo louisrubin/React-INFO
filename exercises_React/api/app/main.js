@@ -78,7 +78,6 @@ const addFormListener = () => {
 }
 
 
-
 const checkLogin = () => 
     localStorage.getItem('jwt')  // verifica si hay un JWT en el localStorage (si no hay significa que el usuario no está logeado)
 
@@ -107,12 +106,43 @@ const loadLoginTemplate = () => {
             <button type="submit">Enviar</button>
         </form>
 
-        <div id="error"></div>
+        <div id="div-error"></div>
     `
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
 }
 
+const addLoginListener = () => {
+    // function de login tomando el template dentro de 'loadLoginTemplate()'
+
+    const loginForm = document.getElementById('login-form')
+    loginForm.onsubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(loginForm)    // obtenemos los datos ingresados en el formulario
+        const data = Object.fromEntries(formData.entries())     // transformamos los datos anteriores en un objeto JS
+    
+        const response = await fetch('/login', {
+            // enviamos los datos anteriores al end-point '/login'
+            method: 'POST',
+            body: JSON.stringify(data),  // transformamos los datos a String para que el servidor pueda interpretarlos
+            headers: {
+                'Content-Type': 'application/json',     // esto es para que el servidor -express- pueda interpretar los datos enviados y los transforme a un objeto JS en el lado del servidor
+            }
+        })
+
+        const responseData = await response.text()  // capturamos la respuesta emitido por el servidor -> Secc-25: 154 - 2:18 min
+        
+        if(response.status >= 300){
+            // status devuelto por el    fetch('/login')
+            const errorNode = document.getElementById('div-error')
+            errorNode.innerHTML = responseData  // si el servidor retornó un error lo inyectamos en el    <div id="div-error"> 
+        }
+        else {
+            // si no hubo errores
+            console.log(responseData)
+        }
+    }
+}
 
 window.onload = () => {
     const isLoggedIn = checkLogin()
@@ -121,5 +151,6 @@ window.onload = () => {
     }
     else {
         loadLoginTemplate()
+        addLoginListener()
     }
 }
