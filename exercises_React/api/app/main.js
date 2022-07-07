@@ -83,13 +83,62 @@ const checkLogin = () =>
 
 
 const homePage = () => {
-    // funcion principal que carga todas las funciones de la página
+    // main function del HomePage 
     loadInitialTemplate()
     addFormListener()   // ejecuta el formulario
     getUsers()      // una vez cargado la página ejecuta getUsers() el cual imprime todos los usuarios existentes en BD
 }
 
+const loadRegisterTemplate = () => {
+    // template Register
+    const template = `
+
+        <h1>Register</h1>
+        <form id="register-form">
+            <div>
+                <label>Correo</label>
+                <input name="email" />
+            </div>
+            <div>
+                <label>Contraseña</label>
+                <input name="password" />
+            </div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+
+        <a href="#" id="a-login">Iniciar Sesión</a>
+        <div id="div-error"></div>
+    `
+    const body = document.getElementsByTagName('body')[0]
+    body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
+}
+
+const addRegisterListener = () => {
+    // aplicando toda la lógica al formulario Register
+
+}
+const gotoLoginListener = () => {
+
+}
+
+const registerPage = () => {
+    // function Register
+    console.log('pagina de registro')
+    loadRegisterTemplate()
+    addRegisterListener()   // ejecuta el formulario
+    gotoLoginListener()
+}
+
+const loginPage = () => {
+    // function Login
+    loadLoginTemplate()
+    addLoginListener()
+    gotoRegisterListener()
+}
+
 const loadLoginTemplate = () => {
+    // template Login
     const template = `
 
         <h1>Login</h1>
@@ -106,14 +155,25 @@ const loadLoginTemplate = () => {
             <button type="submit">Enviar</button>
         </form>
 
+        <a href="#" id="a-register">Registrarse</a>
         <div id="div-error"></div>
     `
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
 }
 
+const gotoRegisterListener = () => {
+    // function aplicado al link 'Registrarse' debajo del form Login
+    const gotoRegister = document.getElementById('a-register')
+    gotoRegister.onclick = (e) => {
+        e.preventDefault()
+        registerPage()
+    }
+}
+
+
 const addLoginListener = () => {
-    // function de login tomando el template dentro de 'loadLoginTemplate()'
+    // aplicando toda la lógica al formulario Login
 
     const loginForm = document.getElementById('login-form')
     loginForm.onsubmit = async (e) => {
@@ -147,10 +207,9 @@ const addLoginListener = () => {
 window.onload = () => {
     const isLoggedIn = checkLogin()
     if (isLoggedIn){
-        homePage()
+        homePage()  // function página de inicio
     }
     else {
-        loadLoginTemplate()
-        addLoginListener()
+        loginPage()     // function página Login
     }
 }
