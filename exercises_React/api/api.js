@@ -1,6 +1,6 @@
 const express = require('express')  // require importa dependencias. 'express' nombre de la librería
 const mongoose = require('mongoose')    // mongoose
-const user = require('./user.controller')
+const clothe = require('./clothe.controller')
 const app = express()   // -app- se crea partir de la ejecución de la función 'express'
 const { Auth, isAuthenticated } = require('./auth.controller')
 const port = 3000
@@ -14,12 +14,12 @@ mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )
 
 
 // CLOTHES
-app.get('/clothes', isAuthenticated, user.list)    
-app.post('/clothes', isAuthenticated, user.create)
-app.get('/clothes/:id', isAuthenticated, user.get)
-app.put('/clothes/:id', isAuthenticated, user.update)
-app.patch('/clothes/:id', isAuthenticated, user.update)
-app.delete('/clothes/:id', isAuthenticated, user.destroy)
+app.get('/clothes', isAuthenticated, clothe.list)    
+app.post('/clothes', isAuthenticated, clothe.create)
+app.get('/clothes/:id', isAuthenticated, clothe.get)
+app.put('/clothes/:id', isAuthenticated, clothe.update)
+app.patch('/clothes/:id', isAuthenticated, clothe.update)
+app.delete('/clothes/:id', isAuthenticated, clothe.destroy)
 
 
 app.post('/login', Auth.login)

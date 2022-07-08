@@ -3,8 +3,8 @@ const loadInitialTemplate = () => {
 
         <h1>Bienvenido</h1>
         <h3>Agregar Ropa</h3>
-        <form id="clothes-form">
-            <div>
+        <form id="clothes-form" style="margin-left:20px;">
+            <div style="margin-bottom: 10px;">
                 <label>Nombre</label>
                 <input name="name" />
             </div>
@@ -13,9 +13,16 @@ const loadInitialTemplate = () => {
                 <input name="type" />
             </div>
             
-            <button type="submit">Enviar</button>
+            <button type="submit" 
+                style="margin: 15px 70px;
+                padding: 5px 10px;
+                background-color: #ffb266;
+                border: 1px solid #000";
+                cursor: pointer;"
+                >Agregar</button>
         </form>
 
+        <h3>Lista de Ropas</h3>
         <ul id="clothes-list"></ul>
     `
     const body = document.getElementsByTagName('body')[0]  // getElementsByTagName() busca por el nombre de la etiqueta -pero devuelve un listado- por eso el [0]
@@ -31,8 +38,19 @@ const getClothes = async () => {
     })
     const clothes = await response.json()     // la respuesta que nos devuelve -fetch- dentro de const 'response' cuenta con un metodo json() el cual nos permite transformar esas respuestas en un -objeto- javascript
     const template_List = clothe => `
-        <li>
-            <b>Nombre: </b>${clothe.name} <b>Tipo: </b>${clothe.type} <button data-id="${clothe._id}">Eliminar</button>
+        
+        <li style="margin-bottom: 10px;">
+            <b>Nombre: </b>${clothe.name} 
+            <b>Tipo: </b>${clothe.type}
+
+            <button data-id="${clothe._id}" 
+            style="background-color: #FF3333;
+            margin-left: 10px;
+            border: 1px solid #000;
+            padding: 3px 8px;
+            cursor: pointer;
+            ">Eliminar</button>
+
         </li>
     `
     const clotheList = document.getElementById('clothes-list')
@@ -62,10 +80,10 @@ const getClothes = async () => {
 }
 
 const addFormListener = () => {
-    const userForm = document.getElementById('user-form')    // buscamos nuestro formulario
-    userForm.onsubmit = async (e) => {
+    const clotheForm = document.getElementById('clothes-form')    // buscamos nuestro formulario
+    clotheForm.onsubmit = async (e) => {
         e.preventDefault()      // preventDefault() evita que la página se refresque cuando presionamos en el botón 'Enviar'
-        const formData = new FormData(userForm)   // buscamos todos los datos que se encuentren en el formulario -pasandole la referencia del formulario html (la const userForm)-
+        const formData = new FormData(clotheForm)   // buscamos todos los datos que se encuentren en el formulario -pasandole la referencia del formulario html (la const userForm)-
         const data = Object.fromEntries(formData.entries())     // transforma un objeto a un objeto JSON pero que cumpla con la condición de que sea iterable DE INPUTS, cosa que el método - formData.entries() - devuelve un iterador
         
         // llamamos a nuestro endPoint '/clothes' y seguido de eso le pasamos un objeto de configuracion
@@ -78,7 +96,7 @@ const addFormListener = () => {
                 Authorization: localStorage.getItem('jwt')  // pasamos el JWT por cabecera del localStorage
             },
         }) // await es pq nos interesa que se termine de crear el usuario antes de pasar a la siguiente instruccion
-        userForm.reset()    // una vez presionado en el boton enviar, el formulario se resetea
+        clotheForm.reset()    // una vez presionado en el boton enviar, el formulario se resetea
         getClothes()
 
     }
@@ -102,8 +120,8 @@ const loadRegisterTemplate = () => {
     const template = `
 
         <h1>Register</h1>
-        <form id="register-form">
-            <div>
+        <form id="register-form" style="margin-left:20px;">
+            <div style="margin-bottom: 10px;">
                 <label>Correo</label>
                 <input name="email" />
             </div>
@@ -112,7 +130,13 @@ const loadRegisterTemplate = () => {
                 <input name="password" />
             </div>
             
-            <button type="submit">Enviar</button>
+            <button type="submit" 
+                style="margin: 15px 70px;
+                padding: 5px 10px;
+                background-color: #66ffb2;
+                border: 1px solid #000";
+                cursor: pointer;"
+            >Registrarse</button>
         </form>
 
         <a href="#" id="a-login">Iniciar Sesión</a>
@@ -155,7 +179,12 @@ const addRegisterListener = () => {
     }
 }
 const gotoLoginListener = () => {
-
+    // function aplicado al link 'Iniciar Sesión' debajo del form Register
+    const gotoLogin = document.getElementById('a-login')
+    gotoLogin.onclick = (e) => {
+        e.preventDefault()
+        loginPage()
+    }
 }
 
 const registerPage = () => {
@@ -178,17 +207,23 @@ const loadLoginTemplate = () => {
     const template = `
 
         <h1>Login</h1>
-        <form id="login-form">
-            <div>
+        <form id="login-form" style="margin-left:20px;">
+            <div style="margin-bottom: 10px;">
                 <label>Correo</label>
                 <input name="email" />
             </div>
             <div>
                 <label>Contraseña</label>
-                <input name="password" />
+                <input name="password" type="password" />
             </div>
             
-            <button type="submit">Enviar</button>
+            <button type="submit" 
+                style="margin: 15px 70px;
+                padding: 5px 10px;
+                background-color: #e5ccff;
+                border: 1px solid #000";
+                cursor: pointer;"
+            >Iniciar Sesión</button>
         </form>
 
         <a href="#" id="a-register">Registrarse</a>
@@ -235,7 +270,8 @@ const addLoginListener = () => {
         }
         else {
             // si no hubo errores
-            console.log(responseData)
+            localStorage.setItem('jwt', `Bearer ${responseData}`)
+            homePage()
         }
     }
 }
