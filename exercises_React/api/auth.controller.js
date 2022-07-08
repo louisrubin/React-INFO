@@ -65,7 +65,7 @@ const Auth = {
                 res.send('Usuario ya existente')
             }
             else {
-                const salt = bcrypt.genSalt()   // genera el salt
+                const salt = await bcrypt.genSalt()   // genera el salt
                 const hashed = await bcrypt.hash( body.password, salt)
                 const user = await User.create({ email: body.email, password: hashed, salt})
 

@@ -23,7 +23,11 @@ const loadInitialTemplate = () => {
 }
 
 const getUsers = async () => {
-    const response = await fetch('/users')
+    const response = await fetch('/users', {
+        headers: {
+            Authorization: localStorage.getItem('jwt')  // pasamos el JWT por cabecera del localStorage
+        },
+    })
     const users = await response.json()     // la respuesta que nos devuelve -fetch- dentro de const 'response' cuenta con un metodo json() el cual nos permite transformar esas respuestas en un -objeto- javascript
     const template = user => `
         <li>
@@ -43,6 +47,9 @@ const getUsers = async () => {
             // en fetch llamamos a '/users' y le pasamos el id del usuario el cual vamos a eliminar
             await fetch(`/users/${user._id}`, {
                 method: 'DELETE',
+                headers: {
+                    Authorization: localStorage.getItem('jwt')  // pasamos el JWT por cabecera del localStorage
+                },
                 // no le pasamos un header pq en nuestro back-end no estamos usando la propiedad de -body- del request
             })
             userNode.parentNode.remove() // subimos un nivel en el árbol html para poder borrar el elemento <li>
@@ -67,8 +74,9 @@ const addFormListener = () => {
             body: JSON.stringify(data),
             headers: {
                 // cabecera del mensaje enviado
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('jwt')  // pasamos el JWT por cabecera del localStorage
+            },
         }) // await es pq nos interesa que se termine de crear el usuario antes de pasar a la siguiente instruccion
         userForm.reset()    // una vez presionado en el boton enviar, el formulario se resetea
         getUsers()
@@ -116,7 +124,35 @@ const loadRegisterTemplate = () => {
 
 const addRegisterListener = () => {
     // aplicando toda la lógica al formulario Register
+    
+    const registerForm = document.getElementById('register-form')
+    registerForm.onsubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(registerForm)    // obtenemos los datos ingresados en el formulario
+        const data = Object.fromEntries(formData.entries())     // transformamos los datos anteriores en un objeto JS
+    
+        const response = await fetch('/register', {
+            // enviamos los datos anteriores al end-point '/register'
+            method: 'POST',
+            body: JSON.stringify(data),  // transformamos los datos a String para que el servidor pueda interpretarlos
+            headers: {
+                'Content-Type': 'application/json',     // esto es para que el servidor -express- pueda interpretar los datos enviados y los transforme a un objeto JS en el lado del servidor
+            }
+        })
 
+        const responseData = await response.text()  // capturamos la respuesta emitido por el servidor -> Secc-25: 154 - 2:18 min
+        
+        if(response.status >= 300){
+            // status devuelto por el    fetch('/register')
+            const errorNode = document.getElementById('div-error')
+            errorNode.innerHTML = responseData  // si el servidor retornó un error lo inyectamos en el    <div id="div-error"> 
+        }
+        else {
+            // si no hubo errores
+            localStorage.setItem('jwt', `Bearer ${responseData}`)
+            homePage()
+        }
+    }
 }
 const gotoLoginListener = () => {
 

@@ -13,8 +13,8 @@ app.use(express.json())     /* Esto toma todas las peticiones que vengan en un f
 mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )
 
 
-app.get('/users', user.list)    // no mostraba la lista de users pq no tenia el token firmado (!loggedIn)
-app.post('/users', user.create)
+app.get('/users', isAuthenticated, user.list)    
+app.post('/users', isAuthenticated, user.create)
 app.get('/users/:id', isAuthenticated, user.get)
 app.put('/users/:id', isAuthenticated, user.update)
 app.patch('/users/:id', isAuthenticated, user.update)
