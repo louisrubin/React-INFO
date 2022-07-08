@@ -30,6 +30,7 @@ const loadInitialTemplate = () => {
 
 }
 
+// GET CLOTHES
 const getClothes = async () => {
     const response = await fetch('/clothes', {
         headers: {
@@ -79,7 +80,8 @@ const getClothes = async () => {
 
 }
 
-const addFormListener = () => {
+// CLOTHES LISTENER (authorization)
+const addClothesListener = () => {
     const clotheForm = document.getElementById('clothes-form')    // buscamos nuestro formulario
     clotheForm.onsubmit = async (e) => {
         e.preventDefault()      // preventDefault() evita que la página se refresque cuando presionamos en el botón 'Enviar'
@@ -108,15 +110,16 @@ const checkLogin = () =>
     localStorage.getItem('jwt')  // verifica si hay un JWT en el localStorage (si no hay significa que el usuario no está logeado)
 
 
+// HOME PAGE
 const homePage = () => {
     // main function del HomePage 
     loadInitialTemplate()
-    addFormListener()   // ejecuta el formulario
+    addClothesListener()   // ejecuta el formulario
     getClothes()      // una vez cargado la página ejecuta getClothes() el cual imprime todos los usuarios existentes en BD
 }
 
+// REGISTER TEMPLATE
 const loadRegisterTemplate = () => {
-    // template Register
     const template = `
 
         <h1>Register</h1>
@@ -145,65 +148,8 @@ const loadRegisterTemplate = () => {
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
 }
-
-const addRegisterListener = () => {
-    // aplicando toda la lógica al formulario Register
-    
-    const registerForm = document.getElementById('register-form')
-    registerForm.onsubmit = async (e) => {
-        e.preventDefault()
-        const formData = new FormData(registerForm)    // obtenemos los datos ingresados en el formulario
-        const data = Object.fromEntries(formData.entries())     // transformamos los datos anteriores en un objeto JS
-    
-        const response = await fetch('/register', {
-            // enviamos los datos anteriores al end-point '/register'
-            method: 'POST',
-            body: JSON.stringify(data),  // transformamos los datos a String para que el servidor pueda interpretarlos
-            headers: {
-                'Content-Type': 'application/json',     // esto es para que el servidor -express- pueda interpretar los datos enviados y los transforme a un objeto JS en el lado del servidor
-            }
-        })
-
-        const responseData = await response.text()  // capturamos la respuesta emitido por el servidor -> Secc-25: 154 - 2:18 min
-        
-        if(response.status >= 300){
-            // status devuelto por el    fetch('/register')
-            const errorNode = document.getElementById('div-error')
-            errorNode.innerHTML = responseData  // si el servidor retornó un error lo inyectamos en el    <div id="div-error"> 
-        }
-        else {
-            // si no hubo errores
-            localStorage.setItem('jwt', `Bearer ${responseData}`)
-            homePage()
-        }
-    }
-}
-const gotoLoginListener = () => {
-    // function aplicado al link 'Iniciar Sesión' debajo del form Register
-    const gotoLogin = document.getElementById('a-login')
-    gotoLogin.onclick = (e) => {
-        e.preventDefault()
-        loginPage()
-    }
-}
-
-const registerPage = () => {
-    // function Register
-    console.log('pagina de registro')
-    loadRegisterTemplate()
-    addRegisterListener()   // ejecuta el formulario
-    gotoLoginListener()
-}
-
-const loginPage = () => {
-    // function Login
-    loadLoginTemplate()
-    addLoginListener()
-    gotoRegisterListener()
-}
-
+// LOGIN TEMPLATE
 const loadLoginTemplate = () => {
-    // template Login
     const template = `
 
         <h1>Login</h1>
@@ -233,27 +179,17 @@ const loadLoginTemplate = () => {
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
 }
 
-const gotoRegisterListener = () => {
-    // function aplicado al link 'Registrarse' debajo del form Login
-    const gotoRegister = document.getElementById('a-register')
-    gotoRegister.onclick = (e) => {
+// una funcion que retorna otra funcion
+const authListener = action => () => {
+    // aplicando toda la lógica los formularios 'Login' y 'Register'
+    const form = document.getElementById(`${action}-form`)
+    form.onsubmit = async (e) => {
         e.preventDefault()
-        registerPage()
-    }
-}
-
-
-const addLoginListener = () => {
-    // aplicando toda la lógica al formulario Login
-
-    const loginForm = document.getElementById('login-form')
-    loginForm.onsubmit = async (e) => {
-        e.preventDefault()
-        const formData = new FormData(loginForm)    // obtenemos los datos ingresados en el formulario
+        const formData = new FormData(form)    // obtenemos los datos ingresados en el formulario
         const data = Object.fromEntries(formData.entries())     // transformamos los datos anteriores en un objeto JS
     
-        const response = await fetch('/login', {
-            // enviamos los datos anteriores al end-point '/login'
+        const response = await fetch(`/${action}`, {
+            // enviamos los datos anteriores al end-point '/register'
             method: 'POST',
             body: JSON.stringify(data),  // transformamos los datos a String para que el servidor pueda interpretarlos
             headers: {
@@ -264,7 +200,7 @@ const addLoginListener = () => {
         const responseData = await response.text()  // capturamos la respuesta emitido por el servidor -> Secc-25: 154 - 2:18 min
         
         if(response.status >= 300){
-            // status devuelto por el    fetch('/login')
+            // status devuelto por el    fetch
             const errorNode = document.getElementById('div-error')
             errorNode.innerHTML = responseData  // si el servidor retornó un error lo inyectamos en el    <div id="div-error"> 
         }
@@ -275,6 +211,49 @@ const addLoginListener = () => {
         }
     }
 }
+// REGISTER LISTENER
+const addRegisterListener = authListener('register')
+// LOGIN LISTENER
+const addLoginListener = authListener('login')
+
+
+// una funcion que retorna otra funcion
+const gotoListener = action => () => {
+    const goTo = document.getElementById(`a-${action}`)
+    goTo.onclick = (e) => {
+        e.preventDefault()
+
+        if (action === 'login'){
+            loginPage()
+        }else {
+            registerPage()
+        }
+    }
+}
+
+const gotoLoginListener = gotoListener('login')
+const gotoRegisterListener = gotoListener('register')
+
+
+// REGISTER PAGE
+const registerPage = () => {
+    // function Register
+    console.log('pagina de registro')
+    loadRegisterTemplate()
+    addRegisterListener()   // ejecuta el formulario
+    gotoLoginListener()
+}
+
+// LOGIN PAGE
+const loginPage = () => {
+    // function Login
+    loadLoginTemplate()
+    addLoginListener()
+    gotoRegisterListener()
+}
+
+
+
 
 window.onload = () => {
     const isLoggedIn = checkLogin()
