@@ -13,12 +13,13 @@ app.use(express.json())     /* Esto toma todas las peticiones que vengan en un f
 mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )
 
 
-app.get('/users', isAuthenticated, user.list)    
-app.post('/users', isAuthenticated, user.create)
-app.get('/users/:id', isAuthenticated, user.get)
-app.put('/users/:id', isAuthenticated, user.update)
-app.patch('/users/:id', isAuthenticated, user.update)
-app.delete('/users/:id', isAuthenticated, user.destroy)
+// CLOTHES
+app.get('/clothes', isAuthenticated, user.list)    
+app.post('/clothes', isAuthenticated, user.create)
+app.get('/clothes/:id', isAuthenticated, user.get)
+app.put('/clothes/:id', isAuthenticated, user.update)
+app.patch('/clothes/:id', isAuthenticated, user.update)
+app.delete('/clothes/:id', isAuthenticated, user.destroy)
 
 
 app.post('/login', Auth.login)
