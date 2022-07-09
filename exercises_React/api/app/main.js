@@ -1,29 +1,105 @@
+const styles = `
+    body {
+        background-color: #eee;
+    }
+
+    .header {
+        margin-top: 1%;
+    }
+    .header h1{
+        display: inline-block;
+        text-align: left;
+        font-size: 2.3em;
+        margin: 0;
+        padding-left: 2%;
+        max-width: 1200px;
+    }
+    #logout {
+        float: right;
+        margin-right: 2%;
+    }
+    .conteiner { 
+        margin-left: 30%;
+    }
+    #add-product{
+        display: inline-block;
+        margin-left: 13%
+    }    
+    #add-product h2 {
+        font-size: 2.2em;
+    }
+
+    #clothe-list {
+        max-width: 550px;
+        background-color: #ffcccc;
+        padding: 10px 10px 20px 25px;
+    }
+    #clothe-list h2 {
+        text-decoration: underline;
+    }
+    #clothes-ul li {
+        margin-bottom: 10px;
+    }
+    #clothes-ul li b {
+        text-decoration: underline;
+    }
+    #add-button {
+        cursor: pointer;
+        margin: 15px 70px;
+        padding: 5px 10px;
+        background-color: #ffb266;
+        border: 1px solid #000;
+        border-radius: 2px; 
+    }
+    #add-button:hover {
+        background-color: #E57200;
+    }
+    #delete-bottom {
+        background-color: #FF3333;
+        margin-left: 10px;
+        border: 1px solid #000;
+        padding: 3px 8px;
+        cursor: pointer;
+        border-radius: 2px; 
+    }
+    #delete-bottom:hover {
+        background-color: #CC0000;
+    }
+`
+const styleSheet = document.createElement('style')
+styleSheet.innerText = styles
+document.head.appendChild(styleSheet)
+
+
+
 const loadInitialTemplate = () => {
     const template = `
-
-        <h1>Bienvenido</h1>
-        <h3>Agregar Ropa</h3>
-        <form id="clothes-form" style="margin-left:20px;">
-            <div style="margin-bottom: 10px;">
-                <label>Nombre</label>
-                <input name="name" />
-            </div>
-            <div>
-                <label>Tipo</label>
-                <input name="type" />
+        <div class="header">
+            <h1>Bienvenido</h1>
+            <button id="logout">Cerrar Sesión</button>
+        </div>
+        <div class="conteiner">
+            <div id="add-product">
+                <h2 style="text-align: center;">Agregar Ropa</h2>
+                <form id="clothes-form" style="margin-left:20px;">
+                    <div style="margin-bottom: 10px;">
+                        <label>Nombre</label>
+                        <input name="name" />
+                    </div>
+                    <div>
+                        <label>Tipo</label>
+                        <input name="type" />
+                    </div>
+                    
+                    <button type="submit" id="add-button">Agregar</button>
+                </form>
             </div>
             
-            <button type="submit" 
-                style="margin: 15px 70px;
-                padding: 5px 10px;
-                background-color: #ffb266;
-                border: 1px solid #000";
-                cursor: pointer;"
-                >Agregar</button>
-        </form>
-
-        <h3>Lista de Ropas</h3>
-        <ul id="clothes-list"></ul>
+            <div id="clothe-list">
+                <h2>Lista de Ropas</h2>
+                <ul id="clothes-ul"></ul>
+            </div>
+        </div>
     `
     const body = document.getElementsByTagName('body')[0]  // getElementsByTagName() busca por el nombre de la etiqueta -pero devuelve un listado- por eso el [0]
     body.innerHTML = template   // innerHTML asignamos el html dentro de la etiqueta body real
@@ -40,21 +116,15 @@ const getClothes = async () => {
     const clothes = await response.json()     // la respuesta que nos devuelve -fetch- dentro de const 'response' cuenta con un metodo json() el cual nos permite transformar esas respuestas en un -objeto- javascript
     const template_List = clothe => `
         
-        <li style="margin-bottom: 10px;">
-            <b>Nombre: </b>${clothe.name} 
-            <b>Tipo: </b>${clothe.type}
+        <li>
+            <b>Nombre:</b> ${clothe.name} 
+            <b>Tipo:</b> ${clothe.type}
 
-            <button data-id="${clothe._id}" 
-            style="background-color: #FF3333;
-            margin-left: 10px;
-            border: 1px solid #000;
-            padding: 3px 8px;
-            cursor: pointer;
-            ">Eliminar</button>
+            <button data-id="${clothe._id}" id="delete-bottom">Eliminar</button>
 
         </li>
     `
-    const clotheList = document.getElementById('clothes-list')
+    const clotheList = document.getElementById('clothes-ul')
     //              con map() iteramos, recibe un parámetro 'user' el cual ejecuta la funcion 'template()' el cual espera por parámetro un usuario, asi que le pasamos el mismo usuario
     clotheList.innerHTML = clothes.map(clothe => template_List(clothe)).join('')
     // por cada 'clothe' devuelto por el servidor, ejecuta la funcion 'template()'. Esto devuelve un arreglo [ ] donde se contiene la plantilla de ese user, por eso llamamos al método join() para convertir todo eso en un 'string' separados por ningún caracter: .join('')
@@ -121,29 +191,34 @@ const homePage = () => {
 // REGISTER TEMPLATE
 const loadRegisterTemplate = () => {
     const template = `
-
-        <h1>Register</h1>
-        <form id="register-form" style="margin-left:20px;">
-            <div style="margin-bottom: 10px;">
-                <label>Correo</label>
-                <input name="email" />
-            </div>
-            <div>
-                <label>Contraseña</label>
-                <input name="password" />
-            </div>
+        
+        <div class="header">
+            <h1>Register</h1>
+        </div>
+        <div class="conteiner">
             
-            <button type="submit" 
-                style="margin: 15px 70px;
-                padding: 5px 10px;
-                background-color: #66ffb2;
-                border: 1px solid #000";
-                cursor: pointer;"
-            >Registrarse</button>
-        </form>
+            <form id="register-form" style="margin-left:20px;">
+                <div style="margin-bottom: 10px;">
+                    <label>Correo</label>
+                    <input name="email" />
+                </div>
+                <div>
+                    <label>Contraseña</label>
+                    <input name="password" />
+                </div>
+                
+                <button type="submit" 
+                    style="margin: 15px 70px;
+                    padding: 5px 10px;
+                    background-color: #66ffb2;
+                    border: 1px solid #000";
+                    cursor: pointer;"
+                >Registrarse</button>
+            </form>
 
-        <a href="#" id="a-login">Iniciar Sesión</a>
-        <div id="div-error"></div>
+            <a href="#" id="a-login">Iniciar Sesión</a>
+            <div id="div-error"></div>
+        </div>
     `
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
@@ -151,29 +226,33 @@ const loadRegisterTemplate = () => {
 // LOGIN TEMPLATE
 const loadLoginTemplate = () => {
     const template = `
+        
+        <div class="header">
+            <h1>Login</h1>
+        </div>
+        <div class="conteiner">
+            <form id="login-form" style="margin-left:20px;">
+                <div style="margin-bottom: 10px;">
+                    <label>Correo</label>
+                    <input name="email" />
+                </div>
+                <div>
+                    <label>Contraseña</label>
+                    <input name="password" type="password" />
+                </div>
+                
+                <button type="submit" 
+                    style="margin: 15px 70px;
+                    padding: 5px 10px;
+                    background-color: #e5ccff;
+                    border: 1px solid #000";
+                    cursor: pointer;"
+                >Iniciar Sesión</button>
+            </form>
 
-        <h1>Login</h1>
-        <form id="login-form" style="margin-left:20px;">
-            <div style="margin-bottom: 10px;">
-                <label>Correo</label>
-                <input name="email" />
-            </div>
-            <div>
-                <label>Contraseña</label>
-                <input name="password" type="password" />
-            </div>
-            
-            <button type="submit" 
-                style="margin: 15px 70px;
-                padding: 5px 10px;
-                background-color: #e5ccff;
-                border: 1px solid #000";
-                cursor: pointer;"
-            >Iniciar Sesión</button>
-        </form>
-
-        <a href="#" id="a-register">Registrarse</a>
-        <div id="div-error"></div>
+            <a href="#" id="a-register">Registrarse</a>
+            <div id="div-error"></div>
+        </div>
     `
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
