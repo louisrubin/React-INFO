@@ -7,12 +7,24 @@ const styles = `
         margin-top: 1%;
     }
     .header h1{
-        display: inline-block;
-        text-align: left;
         font-size: 2.3em;
-        margin: 0;
+        min-width: 85%;
+        max-width: 93%;
+    }
+    .welcome{
+        display: inline-block;
         padding-left: 2%;
-        max-width: 1200px;
+        text-align: left;
+        margin: 0;
+    }
+
+    .login-regist{
+        text-align: center;
+        margin: 25px 0px 30px 0px;
+    }
+
+    .header #h1-login {
+        text-align: center;
     }
     #logout {
         float: right;
@@ -33,6 +45,7 @@ const styles = `
         max-width: 550px;
         background-color: #ffcccc;
         padding: 10px 10px 20px 25px;
+        margin-bottom: 20px;
     }
     #clothe-list h2 {
         text-decoration: underline;
@@ -50,6 +63,7 @@ const styles = `
         background-color: #ffb266;
         border: 1px solid #000;
         border-radius: 2px; 
+        user-select: none;
     }
     #add-button:hover {
         background-color: #E57200;
@@ -61,22 +75,49 @@ const styles = `
         padding: 3px 8px;
         cursor: pointer;
         border-radius: 2px; 
+        user-select: none;
     }
     #delete-bottom:hover {
         background-color: #CC0000;
+    }
+    #btn-logout {
+        margin-left: 3%;
+        user-select: none;
+    }
+    .btn-auth {
+        border-radius: 2px;
+        user-select: none;
+        cursor: pointer;
+        margin: 15px 70px;
+        padding: 5px 10px;
+        background-color: #e5ccff;
+        border: 1px solid #000;
+    }
+    #btn-reg{
+        background-color: #66ffb2;
+    }
+    .div-error {
+        margin: 20px 10px;
+        width: 570px;
     }
 `
 const styleSheet = document.createElement('style')
 styleSheet.innerText = styles
 document.head.appendChild(styleSheet)
+// https://stackoverflow.com/questions/7693224/how-do-i-right-align-div-elements
 
+// CERRAR SESION NO FUNCIONA
+// https://stackoverflow.com/questions/65493867/how-to-remove-jwt-token-from-local-storage
 
-
+const logout = () => {
+    console.log('error cerrando sesion')
+    // doesn't work xD
+}
 const loadInitialTemplate = () => {
     const template = `
         <div class="header">
-            <h1>Bienvenido</h1>
-            <button id="logout">Cerrar Sesión</button>
+            <h1 class="h1 welcome">Bienvenido</h1>
+            <button id="btn-logout" onClick={ logout() }>Cerrar Sesión</button>
         </div>
         <div class="conteiner">
             <div id="add-product">
@@ -99,6 +140,7 @@ const loadInitialTemplate = () => {
                 <h2>Lista de Ropas</h2>
                 <ul id="clothes-ul"></ul>
             </div>
+            <div id="div-error" class="div-error"></div>
         </div>
     `
     const body = document.getElementsByTagName('body')[0]  // getElementsByTagName() busca por el nombre de la etiqueta -pero devuelve un listado- por eso el [0]
@@ -134,6 +176,9 @@ const getClothes = async () => {
         const clotheNode = document.querySelector(`[data-id="${clothe._id}"]`)    // buscamos el boton con la método querySelector()
         
         clotheNode.onclick = async e => {
+            const errorNode = document.getElementById('div-error')
+            errorNode.innerHTML = ''    // mensaje vacio al div 'error'
+
             // en fetch llamamos a '/clothes' y le pasamos el id del usuario el cual vamos a eliminar
             await fetch(`/clothes/${clothe._id}`, {
                 method: 'DELETE',
@@ -153,13 +198,18 @@ const getClothes = async () => {
 // CLOTHES LISTENER (authorization)
 const addClothesListener = () => {
     const clotheForm = document.getElementById('clothes-form')    // buscamos nuestro formulario
+    
+    
     clotheForm.onsubmit = async (e) => {
+        const errorNode = document.getElementById('div-error')
+        errorNode.innerHTML = ''    // mensaje vacio al div 'error'
+
         e.preventDefault()      // preventDefault() evita que la página se refresque cuando presionamos en el botón 'Enviar'
         const formData = new FormData(clotheForm)   // buscamos todos los datos que se encuentren en el formulario -pasandole la referencia del formulario html (la const userForm)-
         const data = Object.fromEntries(formData.entries())     // transforma un objeto a un objeto JSON pero que cumpla con la condición de que sea iterable DE INPUTS, cosa que el método - formData.entries() - devuelve un iterador
         
         // llamamos a nuestro endPoint '/clothes' y seguido de eso le pasamos un objeto de configuracion
-        await fetch('/clothes', {
+        const response = await fetch('/clothes', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -168,10 +218,18 @@ const addClothesListener = () => {
                 Authorization: localStorage.getItem('jwt')  // pasamos el JWT por cabecera del localStorage
             },
         }) // await es pq nos interesa que se termine de crear el usuario antes de pasar a la siguiente instruccion
+        
+        const responseData = await response.text()
+        
         clotheForm.reset()    // una vez presionado en el boton enviar, el formulario se resetea
         getClothes()
 
+        if (response.status >= 300) {
+            errorNode.innerHTML = responseData
+        }
+        
     }
+    
 
 }
 
@@ -193,7 +251,7 @@ const loadRegisterTemplate = () => {
     const template = `
         
         <div class="header">
-            <h1>Register</h1>
+            <h1 class="h1 login-regist">Register</h1>
         </div>
         <div class="conteiner">
             
@@ -204,20 +262,14 @@ const loadRegisterTemplate = () => {
                 </div>
                 <div>
                     <label>Contraseña</label>
-                    <input name="password" />
+                    <input name="password" type="password" />
                 </div>
                 
-                <button type="submit" 
-                    style="margin: 15px 70px;
-                    padding: 5px 10px;
-                    background-color: #66ffb2;
-                    border: 1px solid #000";
-                    cursor: pointer;"
-                >Registrarse</button>
+                <button id="btn-reg" type="submit" class="btn-auth">Registrarse</button>
             </form>
 
             <a href="#" id="a-login">Iniciar Sesión</a>
-            <div id="div-error"></div>
+            <div id="div-error" class="div-error"></div>
         </div>
     `
     const body = document.getElementsByTagName('body')[0]
@@ -228,7 +280,7 @@ const loadLoginTemplate = () => {
     const template = `
         
         <div class="header">
-            <h1>Login</h1>
+            <h1 class="h1 login-regist">Login</h1>
         </div>
         <div class="conteiner">
             <form id="login-form" style="margin-left:20px;">
@@ -241,28 +293,27 @@ const loadLoginTemplate = () => {
                     <input name="password" type="password" />
                 </div>
                 
-                <button type="submit" 
-                    style="margin: 15px 70px;
-                    padding: 5px 10px;
-                    background-color: #e5ccff;
-                    border: 1px solid #000";
-                    cursor: pointer;"
-                >Iniciar Sesión</button>
+                <button id="btn-login" type="submit" class="btn-auth">Iniciar Sesión</button>
             </form>
 
             <a href="#" id="a-register">Registrarse</a>
-            <div id="div-error"></div>
+            <div id="div-error" class="div-error"></div>
         </div>
     `
     const body = document.getElementsByTagName('body')[0]
     body.innerHTML = template   // inyecta el   const 'template'   en la etiqueta 'body'
 }
 
+    
+
 // una funcion que retorna otra funcion
 const authListener = action => () => {
     // aplicando toda la lógica los formularios 'Login' y 'Register'
     const form = document.getElementById(`${action}-form`)
     form.onsubmit = async (e) => {
+        const errorNode = document.getElementById('div-error')
+        errorNode.innerHTML = ''    // mensaje vacio al div 'error'
+
         e.preventDefault()
         const formData = new FormData(form)    // obtenemos los datos ingresados en el formulario
         const data = Object.fromEntries(formData.entries())     // transformamos los datos anteriores en un objeto JS
@@ -280,10 +331,12 @@ const authListener = action => () => {
         
         if(response.status >= 300){
             // status devuelto por el    fetch
-            const errorNode = document.getElementById('div-error')
             errorNode.innerHTML = responseData  // si el servidor retornó un error lo inyectamos en el    <div id="div-error"> 
         }
-        else {
+        else if (responseData === 'Correo ya registrado') {
+            errorNode.innerHTML = responseData
+
+        }else{
             // si no hubo errores
             localStorage.setItem('jwt', `Bearer ${responseData}`)
             homePage()
@@ -317,7 +370,6 @@ const gotoRegisterListener = gotoListener('register')
 // REGISTER PAGE
 const registerPage = () => {
     // function Register
-    console.log('pagina de registro')
     loadRegisterTemplate()
     addRegisterListener()   // ejecuta el formulario
     gotoLoginListener()

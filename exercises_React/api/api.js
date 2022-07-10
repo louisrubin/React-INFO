@@ -1,7 +1,7 @@
 const express = require('express')  // require importa dependencias. 'express' nombre de la librería
-const mongoose = require('mongoose')    // mongoose
+const mongoose = require('mongoose')
 const clothe = require('./clothe.controller')
-const app = express()   // -app- se crea partir de la ejecución de la función 'express'
+const app = express()   // -app- almacena los resultados de la ejecucion de 'express'
 const { Auth, isAuthenticated } = require('./auth.controller')
 const port = 3000
 
@@ -11,6 +11,8 @@ app.use(express.json())     /* Esto toma todas las peticiones que vengan en un f
                                     a través de una peticion POST e inyectarlos en la propiedad de 'body' de nuestro objeto 'request'
                            */
 mongoose.connect(  process.env.MONGODB_CLUSTER_0  +  '&w=majority'  )
+
+// otra librería: dotenv (nos permite tener variables de entornos)
 
 
 // CLOTHES
@@ -39,6 +41,4 @@ app.get('*', (req, res) => {
     res.status(404).send('Page not found')
 })
 
-app.listen(port, () => {
-    console.log('Arrancando la app. PORT: ', port)
-})
+app.listen( port,  ()  =>  console.log('Arrancando la app. PORT: ', port) )

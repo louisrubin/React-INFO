@@ -38,7 +38,7 @@ const Auth = {
         try {
             const user = await User.findOne({ email: body.email})
             if(!user){
-                res.status(401).send('Usuario y/o contraseño incorrecta')
+                res.status(401).send('Usuario y/o contraseña incorrecta')
             } 
             else{
                 const isMatch = await bcrypt.compare(body.password, user.password)  // compara las contraseñas
@@ -49,7 +49,7 @@ const Auth = {
                 }
                 else {
                     // si las contraseñas no coinciden
-                    res.status(401).send('Usuario y/o contraseño incorrecta')
+                    res.status(401).send('Correo y/o contraseña incorrecta')
                 }
             }
         } catch(e) {
@@ -62,7 +62,7 @@ const Auth = {
         try {
             const isUser = await User.findOne({ email: body.email})
             if(isUser){
-                res.send('Usuario ya existente')
+                res.send('Correo ya registrado')
             }
             else {
                 const salt = await bcrypt.genSalt()   // genera el salt
