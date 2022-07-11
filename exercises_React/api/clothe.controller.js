@@ -26,12 +26,18 @@ const Clothe = {
     },
 
     update: async (req, res) => {
+        const { body } = req
         const { id } = req.params   // id del usuario que estamos buscando
-        const clothe = await Clothes.findOne({_id: id})
-                //   (clothe que vamos a modificar  ,  los nuevos datos )
-        Object.assign(     clothe                   ,   req.body)
-        await clothe.save()
-        res.sendStatus(204)
+
+        try{
+            const clothe = await Clothes.findOne({_id: id})
+            Object.assign( clothe, body)
+            await clothe.save()
+            res.sendStatus(204)
+        } catch (err) {
+            res.sendStatus(400)
+        }
+        
     },
 
     destroy: async (req, res) => {
